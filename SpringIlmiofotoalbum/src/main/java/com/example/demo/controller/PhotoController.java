@@ -109,4 +109,12 @@ public class PhotoController {
 		
 		return "redirect:/photos";
 	}
+	@GetMapping("/delete/{id}")
+	public String delete(
+			@PathVariable("id") int id) {
+		
+		photorepo.deleteById(id);
+		
+		return "redirect:/photos";
+	}
 }

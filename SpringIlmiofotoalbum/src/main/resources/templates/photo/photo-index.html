@@ -16,7 +16,8 @@
 			<div>[[*{url}]]</div>
 			<div>[[*{visible}]]</div>
 			<a th:href="@{photos/show/{id}(id=${photo.id})}">Mostra</a>
-			<a th:href="@{photos/edit/{id}(id=${photo.id})}">Modifica</a>				
+			<a th:href="@{photos/edit/{id}(id=${photo.id})}">Modifica</a>	
+			<a th:href="@{photos/delete/{id}(id=${photo.id})}">Elimina</a>		
 		</li>
 	</ul>
 
