@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Aggiungi Foto</title>
+
+</head>
+<body>
+
+	
+	
+	<div>
+		<div >
+			<div>			
+				<h2>Aggiungi una foto</h2>
+			</div>		
+		</div>
+		<div >
+		
+			<div >
+				<div>
+					<form method="POST" th:action="@{/photos/create}" th:object="${photo}">
+						<label >Titolo</label>
+						<input type="text" name="title" th:field="*{title}" />
+						<br>
+						
+						<label >Descrizione</label><br>
+						<input  type="text" name="description" th:field="*{description}" />
+						<br>
+						
+						<label >Url</label><br>
+						<input type="text" name="url" th:field="*{url}" />
+						<br>
+						
+						<label >Visibilità</label>
+						<div>
+							<input  type="radio" name="visible" th:field="*{visible}" value="1"/><label>Visibile</label>
+							<input  type="radio" name="visible" th:field="*{visible}" value="0"/><label>Non visibile</label>
+						</div>
+					
+						
+
+						
+						<button type="submit">Aggiungi</button>
+					</form>
+				</div>
+			</div>	
+		</div>
+	</div>
+</body>
+</html>
