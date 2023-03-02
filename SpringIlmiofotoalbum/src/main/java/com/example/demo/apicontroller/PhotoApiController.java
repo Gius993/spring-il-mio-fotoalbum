@@ -12,17 +12,15 @@ import com.example.demo.model.Photo;
 import com.example.demo.repository.PhotoRepo;
 
 @RestController
-@RequestMapping("/api/1/photos")
-@CrossOrigin("*")
+@CrossOrigin
+@RequestMapping("/api/photos")
 public class PhotoApiController {
 
 	@Autowired
 	private PhotoRepo photorepo;
-	@GetMapping("/all")
-	public List<Photo> getAll() {
-		
+	
+	@GetMapping()		
+	public List<Photo> index() {
 		return photorepo.findAll();
 	}
-	
-	
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,6 +42,7 @@ public class Photo {
 	@Column
 	private boolean visible;
 	@ManyToMany	
+	@JsonBackReference
 	private List<Category> categories;
 	
 	public int getId() {
