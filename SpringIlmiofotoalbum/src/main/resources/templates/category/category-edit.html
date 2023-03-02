@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Modifica categoria</title>
+
+</head>
+
+<body>
+
+
+
+	<div>
+		<div>
+			<div>
+				<h2>Modifica una categoria</h2>
+			</div>
+		</div>
+		<div>
+
+			<div>
+				<div>
+					<form method="POST" th:action="@{|/categories/edit/${category.getId()}|}" th:object="${category}">
+
+						<input type="hidden" name="id" th:field="*{id}"  />
+
+						<label>Nome</label><br>
+						<input type="text" name="name" th:field="*{name}" />
+						<br>
+
+						<input type="submit" value="Aggiorna" />
+					</form>
+					<a href="/photos">Vai a foto</a>
+					<a href="/categories">Vai a categorie</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

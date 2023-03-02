@@ -1,12 +1,7 @@
 package com.example.demo.controller;
 
-
-
-
-
 import java.util.List;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,11 +21,9 @@ import com.example.demo.repository.PhotoRepo;
 
 import jakarta.validation.Valid;
 
-
-
 @Controller
-@RequestMapping("/photos")
-public class PhotoController {
+@RequestMapping("/categories")
+public class CategoryController {
 	@Autowired
 	private PhotoRepo photorepo;
 	@Autowired
@@ -38,70 +31,59 @@ public class PhotoController {
 	
 	@GetMapping
 	public String index(Model model) {
-		List<Category> categories = categoryrepo.findAll();
-		List<Photo> photos = photorepo.findAll();
-		model.addAttribute("categories", categories);
-		model.addAttribute("photos", photos);
 		
-		return "photo/photo-index";
+		List<Category> categories = categoryrepo.findAll();
+		categories.sort((id1, id2) -> id1.getId() - id2.getId());
+		
+		model.addAttribute("categories", categories);
+		
+		return "category/category-index";
 	}
 	
 	@GetMapping("/create")
 	public String create(Model model) {
 		
-		Photo photo = new Photo();	
-		List<Category> categories = categoryrepo.findAll();
-		model.addAttribute("photo", photo);
-		model.addAttribute("categories", categories);
+		Category category = new Category();
+		List<Photo> photos = photorepo.findAll();
 		
-		return "photo/photo-create";
+		model.addAttribute("category", category);
+		model.addAttribute("photos", photos);
+		
+		return "category/category-create";
 	}
 	@PostMapping("/create")
 	public String store(
-			@Valid Photo photo, 
+			@Valid Category category, 
 			BindingResult bindingResult, 
 			RedirectAttributes redirectAttributes
 		) {
 		
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			return "redirect:/photos/create";
+			return "redirect:/categories/create";
 		}
 		
-		photorepo.save(photo);
-		return "redirect:/photos";
+		categoryrepo.save(category);
+		return "redirect:/categories";
 	}
-	@GetMapping("/show/{id}")
-	public String show(
-			@PathVariable("id") int id,
-			Model model) {
-		List<Category> categories = categoryrepo.findAll();
-		Optional<Photo> optPhoto = photorepo.findById(id);
-		
-		Photo photo = optPhoto.get();
-		
-		model.addAttribute("photo", photo);
-		model.addAttribute("categories", categories);
-		return "photo/photo-show";
-	}
-
-
 	@GetMapping("/edit/{id}")
 	public String edit(
 			@PathVariable("id") int id,
 			Model model
 		) {
-		List<Category> categories = categoryrepo.findAll();
-		Photo photo = photorepo.findById(id).get();
 		
-		model.addAttribute("photo", photo);
-		model.addAttribute("categories", categories);
-		return "photo/photo-edit";
+		Category category= categoryrepo.findById(id).get();
+		List<Photo> photos = photorepo.findAll();
+		
+		model.addAttribute("category", category);
+		model.addAttribute("photos", photos);
+		
+		return "category/category-edit";
 	}
-	
-	@PostMapping("/edit")
+	@PostMapping("/edit/{id}")
 	public String update(
-			@Valid @ModelAttribute Photo formPhoto,
+			@PathVariable("id") int id,
+			@Valid @ModelAttribute Category formCategory,
 			BindingResult bindingResult,
 			RedirectAttributes redirectAttributes,
 			Model model
@@ -110,18 +92,20 @@ public class PhotoController {
 		if (bindingResult.hasErrors()) {
 			
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-			return "redirect:/photos/edit/" + formPhoto.getId();
+			return "redirect:/categories/edit/" + formCategory.getId();
 		}
-		photorepo.save(formPhoto);
 		
-		return "redirect:/photos";
+		categoryrepo.save(formCategory);
+		
+		return "redirect:/categories";
 	}
+	
 	@GetMapping("/delete/{id}")
 	public String delete(
 			@PathVariable("id") int id) {
 		
-		photorepo.deleteById(id);
+		categoryrepo.deleteById(id);
 		
-		return "redirect:/photos";
+		return "redirect:/categories";
 	}
 }

@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Photo {
@@ -31,6 +34,8 @@ public class Photo {
 	
 	@Column
 	private boolean visible;
+	@ManyToMany
+	private List<Category> categories;
 	
 	public int getId() {
 		return id;
@@ -72,5 +77,22 @@ public class Photo {
 	}
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+	public List<Category> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+	public void addCategory(Category category) {
+		boolean finded = false;
+		
+		for (Category c : getCategories()) {
+			
+			if (c.getId() == category.getId()) finded = true;
+			
+			if(!finded)
+			getCategories().add(category);
+		}
 	}
 }

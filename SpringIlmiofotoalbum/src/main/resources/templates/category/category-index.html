@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>foto</title>
+</head>
+
+<body>
+	<a href="/">Vai alla home</a>
+	<h1>Sono la categoria</h1>
+	<ul>
+		<li th:each="category : ${categories}" th:object="${category}">
+			<div>[[*{name}]]</div>
+		
+			<a th:href="@{categories/edit/{id}(id=*{id})}">Modifica</a>	
+			<a th:href="@{categories/delete/{id}(id=*{id})}">Elimina</a>
+		</li> 
+	</ul>
+
+
+	<a href="/categories/create">Crea la tua categoria</a>
+</body>
+
+</html>
