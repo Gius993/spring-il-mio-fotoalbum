@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>foto show</title>
+</head>
+
+<body>
+	<a href="/">Vai alla home</a>
+	<h1>Sono la foto</h1>
+	<div  th:object = "${photo}">
+		[[*{title}]]
+	</div>
+	<div>
+		<h3>Categorie:</h3>
+	</div>
+	<a href="photos/create">Crea la tua foto</a>
+	<a href="/photos">Vai a foto</a>
+</body>
+
+</html>
