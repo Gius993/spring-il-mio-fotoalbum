@@ -15,7 +15,8 @@
 	<div>
 		<h3>Categorie:</h3>
 		<ul>
-			<li th:each="category : ${categories}" th:object="${category}">[[*{name}]]</li>
+			
+			<li th:each="category : ${photo.categories}" th:object="${category}" th:text="${category.name}"></li>
 		</ul>
 	</div>
 	<a href="photos/create">Crea la tua foto</a>
