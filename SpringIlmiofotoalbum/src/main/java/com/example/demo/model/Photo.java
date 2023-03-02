@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Photo {
@@ -15,11 +17,11 @@ public class Photo {
 	@Id
 	private int id;
 	
-	
+	@NotEmpty(message = "Deve esserci un titolo")
 	@Column(unique = true)
 	private String title;
 	
-
+	@NotEmpty(message = "Deve esserci un descrizione")
 	@Column
 
 	private String description;
@@ -27,11 +29,11 @@ public class Photo {
 	@Column
 	private String tag;
 	
-	
+	@NotEmpty(message = "Deve esserci un url")
 	@Column
 	private String url;
 	
-	
+	@NotNull(message = "Scegli se renderla visibile o no")
 	@Column
 	private boolean visible;
 	@ManyToMany

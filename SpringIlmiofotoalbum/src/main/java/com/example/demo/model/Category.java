@@ -19,7 +19,7 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	
+	@NotEmpty(message = "Deve esserci un titolo")
 	@Column(unique = true)
 	private String name;
 	

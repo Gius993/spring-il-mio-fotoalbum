@@ -14,6 +14,9 @@
 	</div>
 	<div>
 		<h3>Categorie:</h3>
+		<ul>
+			<li th:each="category : ${categories}" th:object="${category}">[[*{name}]]</li>
+		</ul>
 	</div>
 	<a href="photos/create">Crea la tua foto</a>
 	<a href="/photos">Vai a foto</a>

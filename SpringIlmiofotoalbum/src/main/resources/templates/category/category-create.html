@@ -21,6 +21,14 @@
 
 			<div>
 				<div>
+					<div th:if="${errors}">
+					<h3>Errors:</h3>
+					<ul>
+						<li th:each="error : ${errors}" th:object="${error}">
+							[[*{defaultMessage}]]
+						</li>
+					</ul>
+				</div>
 					<form method="POST" th:action="@{/categories/create}" th:object="${category}">
 						<label>Nome</label><br>
 						<input type="text" name="title" th:field="*{name}" />

@@ -21,6 +21,14 @@
 
 			<div>
 				<div>
+					<div th:if="${errors}">
+					<h3>Errors:</h3>
+					<ul>
+						<li th:each="error : ${errors}" th:object="${error}">
+							[[*{defaultMessage}]]
+						</li>
+					</ul>
+				</div>
 					<form method="POST" th:action="@{|/categories/edit/${category.getId()}|}" th:object="${category}">
 
 						<input type="hidden" name="id" th:field="*{id}"  />

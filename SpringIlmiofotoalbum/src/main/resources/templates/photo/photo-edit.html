@@ -1,54 +1,70 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Modifica Foto</title>
+	<meta charset="UTF-8">
+	<title>Modifica Foto</title>
 
 </head>
+
 <body>
 
-	
-	
+
+
 	<div>
-		<div >
-			<div>			
+		<div>
+			<div>
 				<h2>Modifica la foto</h2>
-			</div>		
+			</div>
 		</div>
-		<div >
-		
-			<div >
+		<div>
+
+			<div>
 				<div>
+					<div th:if="${errors}">
+					<h3>Errors:</h3>
+					<ul>
+						<li th:each="error : ${errors}" th:object="${error}">
+							[[*{defaultMessage}]]
+						</li>
+					</ul>
+				</div>
 					<form method="POST" th:action="@{/photos/edit}" th:object="${photo}">
 						<input type="number" name="id" th:field="*{id}" style="display:none" />
-						<label >Titolo</label>
+						<label>Titolo</label>
 						<input type="text" name="title" th:field="*{title}" />
 						<br>
-						
-						<label >Descrizione</label><br>
-						<input  type="text" name="description" th:field="*{description}" />
+
+						<label>Descrizione</label><br>
+						<input type="text" name="description" th:field="*{description}" />
 						<br>
-						
-						<label >Url</label><br>
+
+						<label>Url</label><br>
 						<input type="text" name="url" th:field="*{url}" />
 						<br>
-						
-						<label >Visibilità</label>
-						<div>
-							<input  type="radio" name="visible" th:field="*{visible}" value="1"/><label>Visibile</label>
-							<input  type="radio" name="visible" th:field="*{visible}" value="0"/><label>Non visibile</label>
-						</div>
-					
-						
 
-						
+						<label>Visibilità</label>
+						<div>
+							<input type="radio" name="visible" th:field="*{visible}" value="1" /><label>Visibile</label>
+							<input type="radio" name="visible" th:field="*{visible}" value="0" /><label>Non
+								visibile</label>
+						</div>
+						<label class="form-label">Categorie</label>
+						<div th:each="category : ${categories}" th:object="${category}">
+							<input type="checkbox" name="categories" th:value="*{id}" th:field="${photo.categories}" />
+							<label>[[*{name}]]</label>
+						</div>
+
+
+
 						<button type="submit">Modifica</button>
 					</form>
-					
+
 					<a href="/photos">Vai a foto</a>
 				</div>
-			</div>	
+			</div>
 		</div>
 	</div>
 </body>
+
 </html>
