@@ -7,9 +7,10 @@ axios.get(`http://localhost:8080/api/photos/${photoId}`).then((list) => {
     document.querySelector('#title').innerHTML= list.data.title;
     document.querySelector('#url').innerHTML= list.data.url;
   
-  
+	
     
     document.getElementById("home_page").innerHTML += `<a href="index.html">vai a home</a>`;
+	
 }).catch((list) =>{
 	console.error("non si puo eseguire la pagina riprova dopo" , list);
 	alert('Errore durante la connessione');
@@ -38,8 +39,12 @@ commentForm.addEventListener('submit', (e) => {
 // stampo i commenti
 axios.get(`http://localhost:8080/api/photos/${photoId}`)
 .then((response) => {
-    const photo = response.data;
-    const comments = photo.comments;
+	console.log(response.data); 
+    const photo = response.data.text;
+	axios.get(`http://localhost:8080/api/comments?photo_id=${photoId}`)
+	.then((response) => {
+	  const comments = response.data;
+    
 
 
     const commentsList = document.querySelector('#comments-list');
@@ -49,7 +54,7 @@ axios.get(`http://localhost:8080/api/photos/${photoId}`)
         commentItem.innerText = comment.content;
         commentsList.appendChild(commentItem);
     });
-})
+})})
 .catch((error) => {
     console.error(error);
 });
