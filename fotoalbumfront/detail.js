@@ -23,7 +23,7 @@ commentForm.addEventListener('submit', (e) => {
     const commentContent = document.querySelector('#comment-input').value;
 
     axios.post(`http://localhost:8080/api/photos/comment/${photoId}`, {
-        content: commentContent
+        text: commentContent
     })
     .then((response) => {
         console.log(response.data);
