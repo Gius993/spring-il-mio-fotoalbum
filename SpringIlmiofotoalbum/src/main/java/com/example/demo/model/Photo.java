@@ -7,12 +7,14 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -44,6 +46,8 @@ public class Photo {
 	@ManyToMany	
 	@JsonBackReference
 	private List<Category> categories;
+	@OneToMany(mappedBy = "photo", cascade = CascadeType.REMOVE)
+	private List<Comment> comments;
 	
 	public int getId() {
 		return id;
@@ -103,4 +107,5 @@ public class Photo {
 			getCategories().add(category);
 		}
 	}
+	
 }
