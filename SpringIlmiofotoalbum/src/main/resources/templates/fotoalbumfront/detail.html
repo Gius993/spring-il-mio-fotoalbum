@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>dettaglio</title>
 </head>
+
 <body>
 	<h1>dettaglio</h1>
 
@@ -16,12 +18,12 @@
 		<ul>
 			<li id="title"></li>
 			<li id="url"></li>
-				
+
 		</ul>
 		<h2>Commenti</h2>
 		<ul id="comments-list"></ul>
-		
-		
+
+
 		<form id="comment-form">
 			<label for="comment-input">Inserisci un commento:</label>
 			<input id="comment-input" type="text" name="comment">
@@ -30,65 +32,69 @@
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
-		const URLParams = new URLSearchParams(window.location.search);
-const photoId = URLParams.get("id");
+		var pathArray = window.location.pathname.split('/');
+		var photoId = pathArray[pathArray.length - 1];
 
 
-axios.get(`http://localhost:8080/api/photo/${photoId}`)
-.then((resalt) => {
-    let photo = resalt.data;
-    console.log(photo);
-    document.querySelector("#title").innerHTML += photo.title;
+		axios.get(`http://localhost:8080/api/photos/${photoId}`).then((list) => {
+			console.log(list);
 
-  
-
-    document.querySelector("#url").innerHTML += photo.url;
-
-  
-    });
-// invio commenti
-const commentForm = document.querySelector('#comment-form');
-
-commentForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const commentContent = document.querySelector('#comment-input').value;
-
-    axios.post(`http://localhost:8080/api/photos/comment/${photoId}`, {
-        text: commentContent
-    })
-    .then((response) => {
-        console.log(response.data);
-
-      
-        window.location.reload();
-    })
-    .catch((error) => {
-        console.error(error);
-    });
-});
-// stampo i commenti
-axios.get(`http://localhost:8080/api/photos/${photoId}`)
-.then((response) => {
-	console.log(response.data); 
-    const photo = response.data.text;
-	axios.get(`http://localhost:8080/api/comments?photo_id=${photoId}`)
-	.then((response) => {
-	  const comments = response.data;
-    
+			document.querySelector('#title').innerHTML = list.data.title;
+			document.querySelector('#url').innerHTML = list.data.url;
 
 
-    const commentsList = document.querySelector('#comments-list');
 
-    comments.forEach((comment) => {
-        const commentItem = document.createElement('li');
-        commentItem.innerText = comment.content;
-        commentsList.appendChild(commentItem);
-    });
-})})
-.catch((error) => {
-    console.error(error);
-});
+			document.getElementById("home_page").innerHTML += `<a href="index.html">vai a home</a>`;
+
+		}).catch((list) => {
+			console.error("non si puo eseguire la pagina riprova dopo", list);
+			alert('Errore durante la connessione');
+		});
+		// invio commenti
+		const commentForm = document.querySelector('#comment-form');
+
+		commentForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+
+			const commentContent = document.querySelector('#comment-input').value;
+
+			axios.post(`http://localhost:8080/api/photos/comment/${photoId}`, {
+				text: commentContent
+			})
+				.then((response) => {
+					console.log(response.data);
+
+
+					window.location.reload();
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		});
+		// stampo i commenti
+		axios.get(`http://localhost:8080/api/photos/${photoId}`)
+			.then((response) => {
+				console.log(response.data);
+				const photo = response.data.text;
+				axios.get(`http://localhost:8080/api/comments?photo_id=${photoId}`)
+					.then((response) => {
+						const comments = response.data;
+
+
+
+						const commentsList = document.querySelector('#comments-list');
+
+						comments.forEach((comment) => {
+							const commentItem = document.createElement('li');
+							commentItem.innerText = comment.content;
+							commentsList.appendChild(commentItem);
+						});
+					})
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	</script>
 </body>
+
 </html>
