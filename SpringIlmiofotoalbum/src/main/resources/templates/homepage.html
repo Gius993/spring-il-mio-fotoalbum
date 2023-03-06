@@ -5,15 +5,16 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Home</title>
+	<th:block th:replace="~{fragments/fragments :: bootstrap}"></th:block>
 </head>
 
 <body>
+	<header th:replace="~{fragments/fragments :: header}"></header>
 	<h1>Sono la home</h1>
-
 	<div>
 		Sito di foto per piu dettagli entra nel nostro album cliccando sotto
 	</div>
-	<a href="/photos">Vai a foto</a>
+	
 </body>
 
 </html>
