@@ -26,8 +26,9 @@ public class Comment {
 	private String text;
 	
 	@ManyToOne
-	@JoinColumn(name="photo_id", nullable=true)
 	@JsonIgnore
+	@JoinColumn(name="photo_id", nullable=true)
+
 	private Photo photo;
 	
 	public int getId() {

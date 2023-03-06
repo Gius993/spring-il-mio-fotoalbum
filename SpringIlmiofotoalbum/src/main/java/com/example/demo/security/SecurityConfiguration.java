@@ -19,15 +19,17 @@ public class SecurityConfiguration {
 			  throws Exception {
 		    http.authorizeHttpRequests()
 		    	.requestMatchers("/photos/create","/photos/edit/**", "/photos/delete/**").hasAuthority("ADMIN") 	
-		        .requestMatchers(HttpMethod.POST, "/**").hasAuthority("ADMIN")		
+		        //.requestMatchers(HttpMethod.POST, "/**").hasAuthority("ADMIN")		
 		        .requestMatchers("/categories/**").hasAuthority("ADMIN")		
 		        .requestMatchers("/","/show/**").hasAnyAuthority("USER", "ADMIN") 	
 		        .requestMatchers("/**").permitAll()											
 		        .and().formLogin()			
 		        .and().logout()			
+		        
 		    	.and().exceptionHandling()
-		    	.accessDeniedPage("/access-denied.html"); 
-		    
+		    	.accessDeniedPage("/access-denied.html")
+		    	.and().csrf().disable();
+		    	
 		    return http.build();
 		  }
 		  

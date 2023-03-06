@@ -5,7 +5,7 @@ function photoList(keyword){
         list.data
             .filter(photo => photo.title.includes(keyword))
             .forEach(photo => {
-                document.getElementById("photo_list").innerHTML += `<li><a href="detail.html?id=${photo.id}">${photo.title}</a></li>`;
+                document.getElementById("photo_list").innerHTML += `<li><a href="/service/${photo.id}">${photo.title}</a></li>`;
             });
         
     }).catch((list) =>{
