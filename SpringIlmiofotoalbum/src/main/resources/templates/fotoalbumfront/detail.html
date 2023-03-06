@@ -72,24 +72,24 @@
 				});
 		});
 		// stampo i commenti
+		
 		axios.get(`http://localhost:8080/api/photos/${photoId}`)
 			.then((response) => {
 				console.log(response.data);
-				const photo = response.data.text;
-				axios.get(`http://localhost:8080/api/comments?photo_id=${photoId}`)
-					.then((response) => {
-						const comments = response.data;
+				
+				const commenti = response.data.comments;
 
 
 
-						const commentsList = document.querySelector('#comments-list');
+				const commentsList = document.querySelector('#comments-list');
 
-						comments.forEach((comment) => {
-							const commentItem = document.createElement('li');
-							commentItem.innerText = comment.content;
-							commentsList.appendChild(commentItem);
-						});
-					})
+				commenti.forEach((comment) => {
+					const commentItem = document.createElement('li');
+					commentItem.innerText = comment.text;
+					commentsList.appendChild(commentItem);
+
+
+				});
 			})
 			.catch((error) => {
 				console.error(error);

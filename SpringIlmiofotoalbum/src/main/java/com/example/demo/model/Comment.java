@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -26,7 +27,7 @@ public class Comment {
 	private String text;
 	
 	@ManyToOne
-	@JsonIgnore
+	@JsonBackReference
 	@JoinColumn(name="photo_id", nullable=true)
 
 	private Photo photo;
